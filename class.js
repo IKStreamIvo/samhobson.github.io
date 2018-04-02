@@ -40,28 +40,28 @@ $(document).ready(function(){
 });
 
 //2. filter data
-function filterFemale(sex){
+function filterFemale(sex, age){
     $(dataSet).each (function (index, value){
         if(value[Sex]===sex) {
-            femaleData.push(value[Sex]);
+            femaleData.push(value);
         }
-        if (value[Age] === [11200]) {
-    age12.push(value[Age])
-}
-        if (value[Age]===[11300]) {
-            age13.push(value[Age])
+        if (value[Age] === '11200') {
+            age12.push(value)
         }
-        if (value[Age]===[11400]) {
-            age14.push(value[Age])
+        if (value[Age]==='11300') {
+            age13.push(value)
         }
-        if (value[Age]===[11500]) {
-            age15.push(value[Age])
+        if (value[Age]==='11400') {
+            age14.push(value)
         }
-        if (value[Age]===[11600]) {
-            age16.push(value[Age])
+        if (value[Age]==='11500') {
+            age15.push(value)
         }
-        if (value[Age]===[11700]) {
-            age17.push(value[Age])
+        if (value[Age]=== '11600') {
+            age16.push(value)
+        }
+        if (value[Age]==='11700') {
+            age17.push(value)
         }
     });
     console.log(femaleData);
