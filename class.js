@@ -1,26 +1,14 @@
 var dataSet = {};
-var maleData = [];
-var femaleData = [];
-var age12 = [];
-var age13 = [];
-var age14 = [];
-var age15 = [];
-var age16 = [];
-var age17 = [];
+var maleData;
+var femaleData;
 var Sex = "Geslacht";
 var Age = "Leeftijd";
-var Origin = "Herkomstgroepering";
-var Years = "Perioden";
-var NumConvictedMinorsHalt = "TotaalAantalHaltJongeren_1";
-var NumCrimes = "TotaalMisdrijvenHalt_2";
-var ViolentCrimes = "GeweldsmisdrijvenHalt_3";
-var DestructionPubProperty = "VernielingEnOpenbareOrdeHalt_4";
-var PropertyCrimes = "VermogensmisdrijvenHalt_5";
-var OtherCrimes = "OverigeMisdrijvenHalt_6";
-
+var fireworkCrime = "VuurwerkovertredingenHalt_10";
+var femaleAges;
+var maleAges;
 $(document).ready(function(){
 
-    //1. get daa
+    //1. get data
     $.ajax({
         url: 'https://opendata.cbs.nl/ODataApi/odata/71930ned/TypedDataSet',
         method: 'GET',
@@ -28,8 +16,6 @@ $(document).ready(function(){
         success: function(data){
 
             dataSet = data.value;
-            filterMale();
-            filterFemale();
         },
         error: function(){
             showError();
@@ -41,52 +27,52 @@ $(document).ready(function(){
 
 //2. filter data
 function filterFemale(sex, age){
+    femaleData = [];
     $(dataSet).each (function (index, value){
         if(value[Sex]===sex) {
             femaleData.push(value);
         }
-        if (value[Age] === '11200') {
-            age12.push(value)
-        }
-        if (value[Age]==='11300') {
-            age13.push(value)
-        }
-        if (value[Age]==='11400') {
-            age14.push(value)
-        }
-        if (value[Age]==='11500') {
-            age15.push(value)
-        }
-        if (value[Age]=== '11600') {
-            age16.push(value)
-        }
-        if (value[Age]==='11700') {
-            age17.push(value)
-        }
     });
     console.log(femaleData);
-    console.log(age12,age13,age14,age15,age16,age17);
 }
-function filterMale(sex){
+function filterMale (sex, age){
+    maleData = [];
     $(dataSet).each (function (index, value){
-      if(value[Sex]===sex) {
-          maleData.push(value[Sex]);
-      }
+        if(value[Sex]===sex) {
+            maleData.push(value);
+        }
     });
     console.log(maleData);
 }
 //3. counting data
+function femaleCount() {
+    femaleAges = {"11200": 0, "11300": 0, "11400": 0, "11500": 0, "11600": 0, "11700": 0, "99   ": 0, "0    ": 0};
+    $(femaleData).each(function(nr, value) {
+        if (value[fireworkCrime] !== null) {
+            femaleAges[value[Age]] += value[fireworkCrime];
+        }
+    })
+}
+function maleCount (){
+    maleAges = {"11200": 0, "11300": 0, "11400": 0, "11500": 0, "11600": 0, "11700": 0, "99   ": 0, "0    ": 0};
+    $(maleData).each(function(nr, value) {
+        if (value[fireworkCrime] !== null) {
+            maleAges[value[Age]] += value[fireworkCrime];
+        }
+    })
+}
 //allows for the selection of what data you would like to see
 $("#generate").click(function(){
     if( $('#female').is(':checked'))
     {
-        filterFemale('4000')
+        filterFemale('4000');
+        femaleCount();
+        console.log(femaleAges);
     }
     if( $('#male').is(':checked'))
     {
-        filterMale('3000')
+        filterMale('3000');
+        maleCount();
+        console.log(maleAges);
     }
 });
-//4. form graph(visuals)
-
-
