@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html>
 
-<!--
-	Programming for online - workshop 5 template
-	Last updated on jan 13 2018, by Martijn Boekema
-	Goal: This exercise focuses on parsing JSON data to an HTML table and showing tooltips with additional info.
--->
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+        <title>Workshop 3 - Programming for online</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header>
+            <h1>Infographic Youth criminality</h1>
+        </header>
 
-<head>
-    <title>Workshop 5 - Programming for online</title>
-    <link rel="stylesheet" href="css/main.css">
-</head>
+        <div id="content">
+            Loading data
 
-<body>
-   
-    <h1>Jongeren criminaliteit in Nederland</h1>
+        </div>
+        <input type="checkbox" name="female" value="female" id="female">Female<br>
+        <input type="checkbox" name="male" value="male" id="male">male<br>
+        <button id="generate">generate</button>
 
-    <section id="violent-crimes">
-        <table>
-            <tbody id="violent-crimes-table-content">
-                <tr>
-                    <th><strong>Jaar</strong></th>
-                    <th><strong>Misdrijven</strong></th>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <g id="graphData">
+            <rect id="Graph_1" x="150" y="287.1" class="graph" width="100" height="9" title="1"/>
+            <rect id="Graph_2" x="250" y="287.1" class="graph" width="100" height="9" title="1l"/>
+            <rect id="Graph_3" x="350" y="287.1" class="graph" width="100" height="9" title="n2"/>
+            <rect id="Graph_4" x="450" y="287.1" class="graph" width="100" height="9" title="n3"/>
+            <rect id="Graph_5" x="550" y="287.1" class="graph" width="100" height="9" title="n33"/>
+            <rect id="Graph_6" x="650" y="287.1" class="graph" width="100" height="9" title="n5"/>
+        </g>
 
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="js/workshop5.js"></script>
-</body>
-
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+        <script src="class.js"></script>
+    </body>
 </html>
-
-
-
