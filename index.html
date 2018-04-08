@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <!--
-        Programming for online - workshop 3 exercise source code
-        Last updated on jan 09 2018, by Martijn Boekema
-        Goal: This exercise focuses on API communication via AJAX.
-    -->
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-        <title>Workshop 3 - Programming for online</title>
-    </head>
-    <body>
-        <header>
-            <h1>Infographic Youth criminality</h1>
-        </header>
 
-        <div id="content">
-            Loading data
+<!--
+	Programming for online - workshop 5 template
+	Last updated on jan 13 2018, by Martijn Boekema
+	Goal: This exercise focuses on parsing JSON data to an HTML table and showing tooltips with additional info.
+-->
 
-        </div>
-        <input type="checkbox" name="female" value="female" id="female">Female<br>
-        <input type="checkbox" name="male" value="male" id="male">male<br>
-        <button id="generate">generate</button>
+<head>
+    <title>Workshop 5 - Programming for online</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
-        <script src="class.js"></script>
-    </body>
+<body>
+   
+    <h1>Jongeren criminaliteit in Nederland</h1>
+
+    <section id="violent-crimes">
+        <table>
+            <tbody id="violent-crimes-table-content">
+                <tr>
+                    <th><strong>Jaar</strong></th>
+                    <th><strong>Misdrijven</strong></th>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="js/workshop5.js"></script>
+</body>
+
 </html>
+
+
+
