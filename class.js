@@ -4,8 +4,8 @@ var femaleData;
 var Sex = "Geslacht";
 var Age = "Leeftijd";
 var fireworkCrime = "VuurwerkovertredingenHalt_10";
-var femaleAges;
-var maleAges;
+var femaleAges = {"11200": 0, "11300": 0, "11400": 0, "11500": 0, "11600": 0, "11700": 0, "99   ": 0, "0    ": 0};
+var maleAges = {"11200": 0, "11300": 0, "11400": 0, "11500": 0, "11600": 0, "11700": 0, "99   ": 0, "0    ": 0};
 var age12Graph;
 var age13Graph;
 var age14Graph;
@@ -27,11 +27,11 @@ $(document).ready(function(){
             showError();
         },
         timeout: 3000
-
     });
 });
-
+    $("#graph").hide();
 //2. filter data
+// this grabs all the data and seperates it into male and female
 function filterFemale(sex, age){
     femaleData = [];
     $(dataSet).each (function (index, value){
@@ -39,7 +39,6 @@ function filterFemale(sex, age){
             femaleData.push(value);
         }
     });
-    console.log(femaleData);
 }
 function filterMale (sex, age){
     maleData = [];
@@ -48,60 +47,83 @@ function filterMale (sex, age){
             maleData.push(value);
         }
     });
-    console.log(maleData);
 }
 //3. counting data
+//this counts the amount of crimes per person and then sorts then into their ages and keeps them separated by sex
 function femaleCount() {
     femaleAges = {"11200": 0, "11300": 0, "11400": 0, "11500": 0, "11600": 0, "11700": 0, "99   ": 0, "0    ": 0};
     $(femaleData).each(function(nr, value) {
         if (value[fireworkCrime] !== null) {
             femaleAges[value[Age]] += value[fireworkCrime];
         }
-        return femaleAges
-        graphData
-    })
+    });
+    graphData();
 }
 function maleCount (){
     maleAges = {"11200": 0, "11300": 0, "11400": 0, "11500": 0, "11600": 0, "11700": 0, "99   ": 0, "0    ": 0};
+    console.log(maleData);
     $(maleData).each(function(nr, value) {
         if (value[fireworkCrime] !== null) {
             maleAges[value[Age]] += value[fireworkCrime];
         }
-        return maleAges;
-        graphData
-    })
+    });
+    graphData();
 }
 //allows for the selection of what data you would like to see
+//allows for the combination and singular selction while also making sure you are able
+//to undo a selection
 $("#generate").click(function(){
-    if( $('#female').is(':checked'))
-    {
+    if($('#female').is(':checked') && $('#male').is(':checked')){
+        filterFemale('4000'); filterMale('3000');
+        femaleCount(); maleCount();
+        generateGraph(maleAges["11200"] + femaleAges["11200"], maleAges["11300"] + femaleAges["11300"], maleAges["11400"] + femaleAges["11400"], maleAges["11500"] + femaleAges["11500"], maleAges["11600"] + femaleAges["11600"], maleAges["11700"] + femaleAges["11700"]);
+    }
+    else if($('#female').is(':checked')){
         filterFemale('4000');
         femaleCount();
-        console.log(femaleAges);
+        generateGraph(femaleAges["11200"], femaleAges["11300"], femaleAges["11400"], femaleAges["11500"], femaleAges["11600"], femaleAges["11700"]);
     }
-    if( $('#male').is(':checked'))
-    {
+    else if($('#male').is(':checked')){
         filterMale('3000');
         maleCount();
-        console.log(maleAges);
+        generateGraph(maleAges["11200"], maleAges["11300"], maleAges["11400"], maleAges["11500"], maleAges["11600"], maleAges["11700"]);
     }
-    setTimeout(function(){
-        generateGraph()
-    }, 3000);
+    else{
+        generateGraph(0,0,0,0,0,0);
+    }
+    $("#graph").show();
 });
+// this puts the male/female data into usable data for the graph
+// also performs a smooth transiton
 function graphData() {
-        age12Graph = maleAges["11200"]+femaleAges["11200"];
-        age13Graph = maleAges["11300"]+femaleAges["11300"];
-        age14Graph = maleAges["11400"]+femaleAges["11400"];
-        age15Graph = maleAges["11500"]+femaleAges["11500"];
-        age16Graph = maleAges["11600"]+femaleAges["11600"];
-        age17Graph = maleAges["11700"]+femaleAges["11700"];
-    }
-function generateGraph() {
-        document.getElementById("Graph_1").setAttribute("height",age12Graph );
-        document.getElementById("Graph_2").setAttribute("height",age13Graph );
-        document.getElementById("Graph_3").setAttribute("height",age14Graph );
-        document.getElementById("Graph_4").setAttribute("height",age15Graph );
-        document.getElementById("Graph_5").setAttribute("height",age16Graph );
-        document.getElementById("Graph_6").setAttribute("height",age17Graph );
+    age12Graph = maleAges["11200"]+femaleAges["11200"];
+    age13Graph = maleAges["11300"]+femaleAges["11300"];
+    age14Graph = maleAges["11400"]+femaleAges["11400"];
+    age15Graph = maleAges["11500"]+femaleAges["11500"];
+    age16Graph = maleAges["11600"]+femaleAges["11600"];
+    age17Graph = maleAges["11700"]+femaleAges["11700"];
 }
+function generateGraph(age12, age13, age14, age15, age16, age17) {
+    $("#age12").animate({"height": age12/100}, 1000);
+    $("#age13").animate({"height": age13/100}, 1000);
+    $("#age14").animate({"height": age14/100}, 1000);
+    $("#age15").animate({"height": age15/100}, 1000);
+    $("#age16").animate({"height": age16/100}, 1000);
+    $("#age17").animate({"height": age17/100}, 1000);
+
+    $("#12graph").animate({"height": age12/100}, 1000);
+    $("#13graph").animate({"height": age13/100}, 1000);
+    $("#14graph").animate({"height": age14/100}, 1000);
+    $("#15graph").animate({"height": age15/100}, 1000);
+    $("#16graph").animate({"height": age16/100}, 1000);
+    $("#17graph").animate({"height": age17/100}, 1000);
+}
+
+//How to call it:
+///Males only
+generateGraph(maleAges["11200"], maleAges["11300"], maleAges["11400"], maleAges["11500"], maleAges["11600"], maleAges["11700"]);
+///Females only
+generateGraph(femaleAges["11200"], femaleAges["11300"], femaleAges["11400"], femaleAges["11500"], femaleAges["11600"], femaleAges["11700"]);
+///BOTH
+generateGraph(maleAges["11200"] + femaleAges["11200"], maleAges["11300"] + femaleAges["11300"], maleAges["11400"] + femaleAges["11400"], maleAges["11500"] + femaleAges["11500"], maleAges["11600"] + femaleAges["11600"], maleAges["11700"] + femaleAges["11700"]
+);
